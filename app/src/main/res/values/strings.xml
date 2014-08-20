@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="create">Créer</string>
     <string name="title_activity_saisie_info">SaisieInfoActivity</string>
+    <string name="valider">Valider</string>
 
 </resources>

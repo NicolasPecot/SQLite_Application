@@ -1,5 +1,6 @@
 package com.tpandroid.nicolas.sqliteapplication;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,5 +20,12 @@ public class BDD {
 
     public Cursor getInfos() {
         return database.rawQuery("SELECT _id, info FROM infos", null);
+    }
+
+    public long createInfo(String info) {
+        ContentValues values = new ContentValues();
+        values.putNull("_id");
+        values.put("info", info);
+        return database.insert("infos", null, values);
     }
 }

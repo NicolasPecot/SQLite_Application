@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 
 public class SaisieInfoActivity extends Activity {
@@ -28,9 +30,17 @@ public class SaisieInfoActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+    }
+
+    public void clic(View v){
+        EditText et = (EditText)findViewById(R.id.edittext);
+        String info = et.getText().toString();
+
+        BDD bdd = new BDD();
+        bdd.open(this);
+        if (bdd.createInfo(info) > 0) {
+            finish();
         }
-        return super.onOptionsItemSelected(item);
     }
 }

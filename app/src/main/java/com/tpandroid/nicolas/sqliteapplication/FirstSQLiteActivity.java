@@ -1,6 +1,7 @@
 package com.tpandroid.nicolas.sqliteapplication;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ public class FirstSQLiteActivity extends ListActivity {
 
     public BDD mabase;
     public Cursor cListeInfos;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class FirstSQLiteActivity extends ListActivity {
                 cListeInfos, new String[] {"info"}, new int[] {android.R.id.text1},
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         setListAdapter(adapter);
+        intent = new Intent(this, SaisieInfoActivity.class);
     }
 
     @Override
@@ -58,7 +61,13 @@ public class FirstSQLiteActivity extends ListActivity {
         int id = item.getItemId();
         if (id == R.id.menu_creerinfo){
             Log.i("Tuto", "on va créer une info");
+            startActivity(intent);
         }
         return  super.onOptionsItemSelected(item);//id == R.id.action_settings ||
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //cListeInfos.requery();
     }
 }
