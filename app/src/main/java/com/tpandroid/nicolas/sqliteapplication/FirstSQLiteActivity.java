@@ -1,13 +1,13 @@
 package com.tpandroid.nicolas.sqliteapplication;
 
 import android.app.ListActivity;
-import android.content.CursorLoader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -24,12 +24,13 @@ public class FirstSQLiteActivity extends ListActivity {
         mabase = new BDD();
         mabase.open(this);
         cListeInfos = mabase.getInfos();
-        //startManagingCursor(cListeInfos);
-        CursorLoader cl = new CursorLoader(this);
-        cl.deliverResult(cListeInfos);
+        startManagingCursor(cListeInfos);
+        //CursorLoader cl = new CursorLoader(this); Nécessite l'implémentation de LoaderManager
+       //cl.deliverResult(cListeInfos);
         //cListeInfos.requery();
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
-                cListeInfos, new String[] {"info"}, new int[] {android.R.id.text1 }, 0);
+                cListeInfos, new String[] {"info"}, new int[] {android.R.id.text1},
+                CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         setListAdapter(adapter);
     }
 
@@ -58,6 +59,6 @@ public class FirstSQLiteActivity extends ListActivity {
         if (id == R.id.menu_creerinfo){
             Log.i("Tuto", "on va créer une info");
         }
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+        return  super.onOptionsItemSelected(item);//id == R.id.action_settings ||
     }
 }
