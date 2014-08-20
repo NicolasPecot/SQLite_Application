@@ -33,13 +33,21 @@ public class SaisieInfoActivity extends Activity {
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Methode appelée sur un clic.
+     * Permet d'ajouter un élément présent dans un champ EditText pour l'ajouter dans la base de données.
+     * @param v : (View) Element cliqué sur le layout (normalement un bouton)
+     */
     public void clic(View v){
+        //Recupération de ce qui a été ajouté dansle champ de texte sur le clic du bouton valider
         EditText et = (EditText)findViewById(R.id.edittext);
         String info = et.getText().toString();
 
+        //AJout en base de données
         BDD bdd = new BDD();
         bdd.open(this);
         if (bdd.createInfo(info) > 0) {
+            // Si l'élément a été ajouté correctement, on revient à l'activité principale
             finish();
         }
     }

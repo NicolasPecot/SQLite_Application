@@ -23,6 +23,8 @@ public class FirstSQLiteActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frame_activity_layout);
+
+        //Creation de la base de données et initialisation du curseur de parcours
         mabase = new BDD();
         mabase.open(this);
         cListeInfos = mabase.getInfos();
@@ -30,6 +32,7 @@ public class FirstSQLiteActivity extends ListActivity {
         //CursorLoader cl = new CursorLoader(this); Nécessite l'implémentation de LoaderManager
        //cl.deliverResult(cListeInfos);
         //cListeInfos.requery();
+        // Parcours de la base de données (mode automatique avec le FLAG_REGISTER_CONTENT_OBSERVER)
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
                 cListeInfos, new String[] {"info"}, new int[] {android.R.id.text1},
                 CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
@@ -61,6 +64,7 @@ public class FirstSQLiteActivity extends ListActivity {
         int id = item.getItemId();
         if (id == R.id.menu_creerinfo){
             Log.i("Tuto", "on va créer une info");
+            //Lancement activité de création d'un nouvel élément
             startActivity(intent);
         }
         return  super.onOptionsItemSelected(item);//id == R.id.action_settings ||
